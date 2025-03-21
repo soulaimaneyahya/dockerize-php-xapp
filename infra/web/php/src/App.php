@@ -8,6 +8,6 @@ class App
 {
     public function __construct()
     {
-        echo "dockerize-php-xapp\n";
+        var_dump($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_PORT']);
     }
 }

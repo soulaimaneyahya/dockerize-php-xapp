@@ -1,8 +1,10 @@
-version: "3"
+version: "3.8"
 
 services:
   php:
-    build: ./app
+    build:
+      context: ./infra/web/php
+      dockerfile: Dockerfile
     image: dockerize_php:v1
     container_name: dockerize_php_container
     working_dir: /var/www/html
@@ -10,13 +12,15 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ./app:/var/www/html
-      - ./app/vendor:/var/www/html/vendor
+      - ./infra/web/php:/var/www/html
+      - ./infra/web/php/vendor:/var/www/html/vendor
     networks:
       - app_network
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./infra/web/nginx
+      dockerfile: Dockerfile
     image: dockerize_nginx:v1
     container_name: dockerize_nginx_container
     working_dir: /var/www/html
