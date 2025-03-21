@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  php:
+    build: ./app
+    image: dockerize_php:v1
+    container_name: dockerize_php_container
+    working_dir: /var/www/html
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./app:/var/www/html
+      - ./app/vendor:/var/www/html/vendor
+    networks:
+      - app_network
+
+  nginx:
+    build: ./nginx
+    image: dockerize_nginx:v1
+    container_name: dockerize_nginx_container
+    working_dir: /var/www/html
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
