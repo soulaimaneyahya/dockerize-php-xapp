@@ -25,10 +25,10 @@ jobs:
 
       - name: Validate composer.json and composer.lock
         run: |
-          cd app
+          cd infra/web/php
           composer validate --strict
 
       - name: Install dependencies
         run: |
-          cd app
+          cd infra/web/php
           composer install --prefer-dist --no-interaction --no-progress
