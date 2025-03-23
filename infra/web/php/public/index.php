@@ -5,7 +5,7 @@
  * Date: 2025-03-22
  */
 
-use App\App;
+use App\Init;
 
 /*
 * Time Zone Setting
@@ -20,4 +20,4 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $config = require_once __DIR__ . '/../config/app.php';
 
-$app = new App($config);
+new Init($config);
