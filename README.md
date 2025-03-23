@@ -1,8 +1,11 @@
 # dockerize-php-xapp
 
 - [x] simple project dockerize php-nginx-mysql
-- [] deploy k8s
-- [] using haproxy as load balancer
+- [x] simple php-code
+- [ ] PHP posts APIs
+- [ ] frontend js fetch backend APIs
+- [ ] deploy k8s
+- [ ] using haproxy as load balancer
 
 docker-compose cli
 ```sh
