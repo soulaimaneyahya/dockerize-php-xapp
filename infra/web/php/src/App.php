@@ -4,10 +4,25 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\DatabaseConnection;
+
 class App
 {
-    public function __construct()
+    private DatabaseConnection $dbConnection;
+
+    public function __construct(array $config)
     {
-        var_dump($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_PORT']);
+        $this->dbConnection = new DatabaseConnection($config);
+        
+        dump($config['app_name']);
+        dump($config['app_root']);
+        dump($config['app_url']);
+        dump($_SERVER['SERVER_ADDR']);
+        dd($_SERVER['SERVER_PORT']);
+    }
+
+    public function getDatabaseConnection(): DatabaseConnection
+    {
+        return $this->dbConnection;
     }
 }

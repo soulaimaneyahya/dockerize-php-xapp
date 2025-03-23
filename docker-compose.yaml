@@ -1,6 +1,22 @@
 version: "3.8"
 
 services:
+  mysql:
+    build:
+      context: ./infra/database/mysql
+      dockerfile: Dockerfile
+    image: dockerize_mysql:v1
+    container_name: dockerize_mysql_container
+    env_file:
+      - ./infra/database/mysql/.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      app_network:
+        ipv4_address: 192.168.0.100  # IP for MySQL
+
   php:
     build:
       context: ./infra/web/php
@@ -8,14 +24,19 @@ services:
     image: dockerize_php:v1
     container_name: dockerize_php_container
     working_dir: /var/www/html
+    env_file:
+      - ./infra/web/php/.env
     restart: always
     ports:
       - "9000:9000"
     volumes:
       - ./infra/web/php:/var/www/html
       - ./infra/web/php/vendor:/var/www/html/vendor
+    depends_on:
+      - mysql
     networks:
-      - app_network
+      app_network:
+        ipv4_address: 192.168.0.101  # IP for PHP
 
   nginx:
     build:
@@ -24,14 +45,25 @@ services:
     image: dockerize_nginx:v1
     container_name: dockerize_nginx_container
     working_dir: /var/www/html
+    env_file:
+      - ./infra/web/nginx/.env
     restart: always
     ports:
       - "80:80"
     depends_on:
       - php
     networks:
-      - app_network
+      app_network:
+        ipv4_address: 192.168.0.102  # IP for Nginx
+
+volumes:
+  mysql_data:
 
 networks:
   app_network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: "192.168.0.0/24"  # subnet for the network
+          gateway: "192.168.0.1"  # gateway for the subnet
+    external: false
