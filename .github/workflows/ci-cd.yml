@@ -1,0 +1,54 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "app/**"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: "8.3"
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Validate composer.json and composer.lock
+        run: |
+          cd infra/web/php
+          composer validate --strict
+
+      - name: Install dependencies
+        run: |
+          cd infra/web/php
+          composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+        timeout-minutes: 5
+
+      - name: Build Docker image
+        run: |
+          cd infra/web/php
+          docker build -t dockerize_php:v1 .
+        timeout-minutes: 5
+
+      - name: Push Docker image
+        run: |
+          docker tag dockerize_php:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_php:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_php:v1
+        timeout-minutes: 5
