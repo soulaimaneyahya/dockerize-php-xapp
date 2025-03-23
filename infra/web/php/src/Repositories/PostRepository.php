@@ -5,23 +5,36 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Entities\PostEntity;
-use App\Database\Connection;
+use App\Database\ConnectionService;
 
 final class PostRepository
 {
-    private readonly Connection $dbConnection;
     public array $posts = [];
+
+    private readonly ConnectionService $dbConnection;
 
     public function __construct(array $config)
     {
-        $this->dbConnection = new Connection($config);
-
-        /**
-         * Running migrations
-         */
-        $this->migrateDatabase();
+        $this->dbConnection = new ConnectionService($config);
 
         $this->posts = $this->setPosts();
+    }
+
+    public function setPosts(): array
+    {
+        $query = "SELECT id, title, description, created_at, updated_at FROM posts";
+        $stmt = $this->dbConnection->getPdo()->query($query);
+
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $this->hydratePosts($data);
+
+        return $this->posts;
+    }
+
+    public function getPosts(): array
+    {
+        return $this->posts;
     }
 
     /**
@@ -41,26 +54,6 @@ final class PostRepository
                 $post['updated_at']
             );
         }
-    }
-
-    public function setPosts(): array
-    {
-        try {
-            $query = "SELECT id, title, description, created_at, updated_at FROM posts";
-            $stmt = $this->dbConnection->getPdo()->query($query);
-
-            $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            $this->hydratePosts($data);
-
-            return $this->posts;
-        } catch (\Exception $ex) {
-            dd($ex->getMessage());
-        }
-    }
-
-    public function getPosts(): array
-    {
-        return $this->posts;
     }
 
     /**
