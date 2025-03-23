@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Database;
 
 use PDO;
 use PDOException;
 
-final class DatabaseConnection
+final class Connection
 {
     private readonly PDO $pdo;
     private readonly string $host;
