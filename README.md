@@ -15,4 +15,6 @@ docker logs dockerize_php_container
 docker network inspect app_network
 
 docker exec -it dockerize_nginx_container /bin/sh
+docker exec -it dockerize_php_container /bin/sh
+docker exec -it dockerize_mysql_container /bin/sh
 ```
