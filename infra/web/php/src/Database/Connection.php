@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Database;
 
 use PDO;
 use PDOException;
 
-class DatabaseConnection
+final class Connection
 {
-    private PDO $pdo;
-    private string $host;
-    private int $port;
-    private string $dbname;
-    private string $username;
-    private string $password;
+    private readonly PDO $pdo;
+    private readonly string $host;
+    private readonly int $port;
+    private readonly string $dbname;
+    private readonly string $username;
+    private readonly string $password;
 
     public function __construct(array $config)
     {
