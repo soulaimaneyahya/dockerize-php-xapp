@@ -8,11 +8,11 @@ use App\Database\ConnectionService;
 
 final class Init
 {
-    private readonly ConnectionService $connectionService;
+    private readonly ConnectionService $dbConnection;
 
     public function __construct(array $config)
     {
-        $this->connectionService = new ConnectionService($config);
+        $this->dbConnection = new ConnectionService($config);
 
         $this->logConfig($config);
     }
