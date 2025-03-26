@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -29,11 +29,25 @@ jobs:
           cd infra/web/php
           composer install --prefer-dist --no-interaction --no-progress
 
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci
+    timeout-minutes: 10
+
+    steps:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+        timeout-minutes: 5
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.XUSERNAME }}
+          password: ${{ secrets.XTOKEN }}
         timeout-minutes: 5
 
       - name: Build Infra/PHP Docker image
@@ -42,10 +56,16 @@ jobs:
           docker build -t dockerize_php:v1 .
         timeout-minutes: 5
 
-      - name: Push Infra/PHP Docker image
+      - name: Push Infra/PHP Docker image to Docker Hub
         run: |
           docker tag dockerize_php:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_php:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_php:v1
+        timeout-minutes: 5
+
+      - name: Push Infra/PHP Docker image to GHCR
+        run: |
+          docker tag dockerize_php:v1 ghcr.io/${{ github.repository_owner }}/dockerize_php:v1
+          docker push ghcr.io/${{ github.repository_owner }}/dockerize_php:v1
         timeout-minutes: 5
 
       - name: Build Infra/Nginx Docker image
@@ -54,20 +74,32 @@ jobs:
           docker build -t dockerize_nginx:v1 .
         timeout-minutes: 5
 
-      - name: Push Infra/Nginx Docker image
+      - name: Push Infra/Nginx Docker image to Docker Hub
         run: |
           docker tag dockerize_nginx:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_nginx:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_nginx:v1
         timeout-minutes: 5
 
+      - name: Push Infra/Nginx Docker image to GHCR
+        run: |
+          docker tag dockerize_nginx:v1 ghcr.io/${{ github.repository_owner }}/dockerize_nginx:v1
+          docker push ghcr.io/${{ github.repository_owner }}/dockerize_nginx:v1
+        timeout-minutes: 5
+
       - name: Build Infra/mysql Docker image
         run: |
-          cd infra/web/mysql
+          cd infra/database/mysql
           docker build -t dockerize_mysql:v1 .
         timeout-minutes: 5
 
-      - name: Push Infra/mysql Docker image
+      - name: Push Infra/mysql Docker image to Docker Hub
         run: |
           docker tag dockerize_mysql:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_mysql:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_mysql:v1
+        timeout-minutes: 5
+
+      - name: Push Infra/mysql Docker image to GHCR
+        run: |
+          docker tag dockerize_mysql:v1 ghcr.io/${{ github.repository_owner }}/dockerize_mysql:v1
+          docker push ghcr.io/${{ github.repository_owner }}/dockerize_mysql:v1
         timeout-minutes: 5

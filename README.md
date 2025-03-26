@@ -31,5 +31,29 @@ docker exec -it dockerize_php_container /bin/sh
 docker exec -it dockerize_mysql_container /bin/sh
 ```
 
+folder structure
+
+```sh
+├── docker-compose.yaml
+├── infra/
+│   ├── database/
+│   │   ├── mysql/
+│   │   │   ├── Dockerfile
+│   │   │   ├── .env
+│   └── web/
+│       ├── nginx/
+│       │   ├── Dockerfile
+│       │   ├── nginx.conf
+│       │   └── .env
+│       └── php/
+│           ├── composer.json
+│           ├── config/
+│           ├── Dockerfile
+│           ├── .env
+│           ├── public/
+│           │   └── index.php
+│           ├── src/
+```
+
 **resources**;
 - [Managing Linode cloud K8s infra using Terraform - GitHub repo](https://github.com/soulaimaneyahyax/terraform-linode-k8s)
