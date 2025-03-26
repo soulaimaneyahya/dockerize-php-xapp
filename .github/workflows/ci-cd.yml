@@ -46,7 +46,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.XUSERNAME }}
+          username: ${{ github.actor }}
           password: ${{ secrets.XTOKEN }}
         timeout-minutes: 5
 
