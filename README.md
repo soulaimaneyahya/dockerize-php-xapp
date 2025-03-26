@@ -1,5 +1,7 @@
 # dockerize-php-xapp
 
+[![CI-CD](https://github.com/soulaimaneyahyax/dockerize-php-xapp/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/soulaimaneyahyax/dockerize-php-xapp/actions/workflows/ci-cd.yml)
+
 - [x] simple project dockerize php-nginx-mysql
 - [x] simple php-code
 - [ ] PHP posts APIs
@@ -29,6 +31,30 @@ docker network inspect app_network
 docker exec -it dockerize_nginx_container /bin/sh
 docker exec -it dockerize_php_container /bin/sh
 docker exec -it dockerize_mysql_container /bin/sh
+```
+
+folder structure
+
+```sh
+├── docker-compose.yaml
+├── infra/
+│   ├── database/
+│   │   ├── mysql/
+│   │   │   ├── Dockerfile
+│   │   │   ├── .env
+│   └── web/
+│       ├── nginx/
+│       │   ├── Dockerfile
+│       │   ├── nginx.conf
+│       │   └── .env
+│       └── php/
+│           ├── composer.json
+│           ├── config/
+│           ├── Dockerfile
+│           ├── .env
+│           ├── public/
+│           │   └── index.php
+│           ├── src/
 ```
 
 **resources**;
