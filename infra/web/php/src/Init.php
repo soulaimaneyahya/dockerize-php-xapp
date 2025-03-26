@@ -4,37 +4,27 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Repositories\PostRepository;
+use App\Database\ConnectionService;
 
 final class Init
 {
-    private readonly array $posts;
+    private readonly ConnectionService $dbConnection;
 
     public function __construct(array $config)
     {
-        $this->posts = (new PostRepository($config))->getPosts();
+        $this->dbConnection = new ConnectionService($config);
 
-        $this->getPosts();
-
-        $this->dumpConfig($config);
+        $this->logConfig($config);
     }
 
-    protected function getPosts(): void
+    private function logConfig(array $config): void
     {
-        foreach ($this->posts as $post) {
-            echo '<h4>#' . htmlspecialchars($post->getTitle()) . '</h4>';
-            echo '<p>' . htmlspecialchars($post->getDescription()) . '</p>';
-            echo '<p>Created At: ' . $post->getCreatedAt() . '</p>';
-            echo '<hr>';
-        }
-    }
-
-    protected function dumpConfig(array $config): void
-    {
-        dump($config['app_name']);
-        dump($config['app_root']);
-        dump($config['app_url']);
-        dump($_SERVER['SERVER_ADDR']);
-        dd($_SERVER['SERVER_PORT']);
+        dump([
+            $config['app_name'],
+            $config['app_root'],
+            $config['app_url'],
+            $_SERVER['SERVER_ADDR'],
+            $_SERVER['SERVER_PORT'],
+        ]);
     }
 }
