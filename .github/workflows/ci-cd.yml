@@ -62,7 +62,7 @@ jobs:
 
       - name: Build Infra/mysql Docker image
         run: |
-          cd infra/web/mysql
+          cd infra/database/mysql
           docker build -t dockerize_mysql:v1 .
         timeout-minutes: 5
 
