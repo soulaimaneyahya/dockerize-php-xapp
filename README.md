@@ -1,5 +1,7 @@
 # dockerize-php-xapp
 
+[![CI-CD](https://github.com/soulaimaneyahyax/dockerize-php-xapp/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/soulaimaneyahyax/dockerize-php-xapp/actions/workflows/ci-cd.yml)
+
 - [x] simple project dockerize php-nginx-mysql
 - [x] simple php-code
 - [ ] PHP posts APIs
