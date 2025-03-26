@@ -7,6 +7,12 @@
 - [ ] deploy k8s
 - [ ] using haproxy as load balancer
 
+docker hub images;
+
+- https://hub.docker.com/r/soulaimaneyhcodpartner/dockerize_php
+- https://hub.docker.com/r/soulaimaneyhcodpartner/dockerize_nginx
+- https://hub.docker.com/r/soulaimaneyhcodpartner/dockerize_mysql
+
 docker-compose cli
 ```sh
 docker-compose down --rmi all -v

@@ -36,14 +36,38 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
         timeout-minutes: 5
 
-      - name: Build Docker image
+      - name: Build Infra/PHP Docker image
         run: |
           cd infra/web/php
           docker build -t dockerize_php:v1 .
         timeout-minutes: 5
 
-      - name: Push Docker image
+      - name: Push Infra/PHP Docker image
         run: |
           docker tag dockerize_php:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_php:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_php:v1
+        timeout-minutes: 5
+
+      - name: Build Infra/Nginx Docker image
+        run: |
+          cd infra/web/nginx
+          docker build -t dockerize_nginx:v1 .
+        timeout-minutes: 5
+
+      - name: Push Infra/Nginx Docker image
+        run: |
+          docker tag dockerize_nginx:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_nginx:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_nginx:v1
+        timeout-minutes: 5
+
+      - name: Build Infra/mysql Docker image
+        run: |
+          cd infra/web/mysql
+          docker build -t dockerize_mysql:v1 .
+        timeout-minutes: 5
+
+      - name: Push Infra/mysql Docker image
+        run: |
+          docker tag dockerize_mysql:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_mysql:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_mysql:v1
         timeout-minutes: 5
