@@ -39,10 +39,8 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Set up PHP
-        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: "8.3"
+      - name: Checkout code
+        uses: actions/checkout@v3
     
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -58,9 +56,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.XTOKEN }}
         timeout-minutes: 5
-
-      - name: Checkout code
-        uses: actions/checkout@v3
 
       - name: Build Infra/PHP Docker image
         run: |
