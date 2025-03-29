@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Entities\PostEntity;
-use App\Database\ConnectionService;
+use App\Database\DatabaseConnectionService;
 
 final class PostRepository
 {
     public array $posts = [];
 
-    private readonly ConnectionService $dbConnection;
+    private readonly DatabaseConnectionService $dbConnectionService;
 
     public function __construct(array $config)
     {
-        $this->dbConnection = new ConnectionService($config);
+        $this->dbConnectionService = new DatabaseConnectionService($config['database']);
 
         $this->posts = $this->setPosts();
     }
@@ -23,7 +23,7 @@ final class PostRepository
     public function setPosts(): array
     {
         $query = "SELECT id, title, description, created_at, updated_at FROM posts";
-        $stmt = $this->dbConnection->getPdo()->query($query);
+        $stmt = $this->dbConnectionService->getPdo()->query($query);
 
         $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

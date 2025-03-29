@@ -22,6 +22,7 @@ docker network inspect app_network
 docker exec -it dockerize_xapp_nginx_container /bin/sh
 docker exec -it dockerize_xapp_php_container /bin/sh
 
+docker exec -it dockerize_xapp_redis_container /bin/sh
 docker exec -it dockerize_xapp_mysql_container /bin/sh
 docker exec -it dockerize_xapp_mysql_container mysql -u user -p
 ```

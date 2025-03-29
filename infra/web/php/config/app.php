@@ -13,11 +13,16 @@ return [
     'app_url' => $_ENV['APP_URL'],
     'database' => [
         'host' => $_ENV['DB_HOST'],
-        'db_connect' => $_ENV['DB_CONNECT'],
+        'database_connect' => $_ENV['DB_CONNECT'],
         'port' => $_ENV['MYSQL_PORT'],
         'database_name' => $_ENV['MYSQL_DATABASE'],
         'username' => $_ENV['MYSQL_USER'],
         'password' => $_ENV['MYSQL_PASSWORD'],
         'database_root_password' => $_ENV['MYSQL_ROOT_PASSWORD'],
-    ]
+    ],
+    'redis' => [
+        'host' => $_ENV['REDIS_HOST'],
+        'port' => $_ENV['REDIS_PORT'],
+        'password' => $_ENV['REDIS_PASSWORD'],
+    ],
 ];

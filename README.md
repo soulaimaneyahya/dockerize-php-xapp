@@ -1,6 +1,11 @@
+<div align="center">
+
 # dockerize-php-xapp
 
+[![CI](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci.yml/badge.svg)](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci.yml)
 [![CI-CD](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci-cd.yml)
+
+</div>
 
 - [x] simple project dockerize php-nginx-mysql
 - [x] simple php-code
