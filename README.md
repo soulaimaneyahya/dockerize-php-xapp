@@ -2,13 +2,13 @@
 
 # dockerize-php-xapp
 
-[![CI](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci.yml/badge.svg)](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci.yml)
 [![CI-CD](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci-cd.yml)
 
 </div>
 
 - [x] simple project dockerize php-nginx-mysql
 - [x] simple php-code
+- [x] redis-database
 - [ ] PHP posts APIs
 - [ ] frontend js fetch backend APIs
 - [ ] deploy k8s
@@ -21,6 +21,9 @@ folder structure
 ├── infra/
 │   ├── database/
 │   │   ├── mysql/
+│   │   │   ├── Dockerfile
+│   │   │   ├── .env
+│   │   ├── redis/
 │   │   │   ├── Dockerfile
 │   │   │   ├── .env
 │   └── web/
