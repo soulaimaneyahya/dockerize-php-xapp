@@ -1,12 +1,12 @@
 version: "3.8"
 
 services:
-  mysql:
+  dockerize_xapp_mysql_service:
     build:
       context: ./infra/database/mysql
       dockerfile: Dockerfile
-    image: dockerize_mysql:v1
-    container_name: dockerize_mysql_container
+    image: dockerize_xapp_mysql_image:v1
+    container_name: dockerize_xapp_mysql_container
     env_file:
       - ./infra/database/mysql/.env
     ports:
@@ -15,14 +15,14 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       app_network:
-        ipv4_address: 192.168.0.100  # IP for MySQL
+        ipv4_address: 10.10.0.100 # IP for MySQL
 
-  php:
+  dockerize_xapp_php_service:
     build:
       context: ./infra/web/php
       dockerfile: Dockerfile
-    image: dockerize_php:v1
-    container_name: dockerize_php_container
+    image: dockerize_xapp_php_image:v1
+    container_name: dockerize_xapp_php_container
     working_dir: /var/www/html
     env_file:
       - ./infra/web/php/.env
@@ -33,17 +33,17 @@ services:
       - ./infra/web/php:/var/www/html
       - ./infra/web/php/vendor:/var/www/html/vendor
     depends_on:
-      - mysql
+      - dockerize_xapp_mysql_service
     networks:
       app_network:
-        ipv4_address: 192.168.0.101  # IP for PHP
+        ipv4_address: 10.10.0.101 # IP for PHP
 
-  nginx:
+  dockerize_xapp_nginx_service:
     build:
       context: ./infra/web/nginx
       dockerfile: Dockerfile
-    image: dockerize_nginx:v1
-    container_name: dockerize_nginx_container
+    image: dockerize_xapp_nginx_image:v1
+    container_name: dockerize_xapp_nginx_container
     working_dir: /var/www/html
     env_file:
       - ./infra/web/nginx/.env
@@ -51,10 +51,10 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - php
+      - dockerize_xapp_php_service
     networks:
       app_network:
-        ipv4_address: 192.168.0.102  # IP for Nginx
+        ipv4_address: 10.10.0.102 # IP for Nginx
 
 volumes:
   mysql_data:
@@ -64,6 +64,6 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: "192.168.0.0/24"  # subnet for the network
-          gateway: "192.168.0.1"  # gateway for the subnet
+        - subnet: "10.10.0.0/24" # subnet for the network
+          gateway: "10.10.0.1" # gateway for the subnet
     external: false
