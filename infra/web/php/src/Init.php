@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Database\ConnectionService;
+use App\Database\DatabaseConnectionService;
+use App\Database\RedisConnectionService;
 
 final class Init
 {
-    private readonly ConnectionService $dbConnection;
+    private readonly DatabaseConnectionService $dbConnectionService;
+    private readonly RedisConnectionService $redisConnectionService;
 
     public function __construct(array $config)
     {
-        $this->dbConnection = new ConnectionService($config);
+        $this->dbConnectionService = new DatabaseConnectionService($config['database']);
+        $this->redisConnectionService = new RedisConnectionService($config['redis']);
 
         $this->logConfig($config);
     }

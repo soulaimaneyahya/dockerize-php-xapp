@@ -56,6 +56,20 @@ services:
       app_network:
         ipv4_address: 10.10.0.102 # IP for Nginx
 
+  dockerize_xapp_redis_service:
+    build:
+      context: ./infra/database/redis
+      dockerfile: Dockerfile
+    image: dockerize_xapp_redis_image:v1
+    container_name: dockerize_xapp_redis_container
+    env_file:
+      - ./infra/database/redis/.env
+    ports:
+      - "6380:6379"  # Host port 6380 mapped to Redis container's default port 6379
+    networks:
+      app_network:
+        ipv4_address: 10.10.0.103 # IP for redis
+
 volumes:
   mysql_data:
 

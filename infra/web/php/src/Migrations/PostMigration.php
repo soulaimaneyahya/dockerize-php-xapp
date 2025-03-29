@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Migrations;
 
 use PDO;
-use App\Database\ConnectionService;
+use App\Database\DatabaseConnectionService;
 
 final class PostMigration
 {
-    private readonly ConnectionService $dbConnection;
+    private readonly DatabaseConnectionService $dbConnectionService;
 
     public function __construct(array $config)
     {
-        $this->dbConnection = new ConnectionService($config);
+        $this->dbConnectionService = new DatabaseConnectionService($config['database']);
     }
 
     /**
@@ -38,7 +38,7 @@ final class PostMigration
                 ('Lorem Ipsum 2', 'Quisque velit nisi, pretium ut lacinia in.', NOW(), NOW());
             ";
 
-            $this->dbConnection->getPdo()->exec($sql);
+            $this->dbConnectionService->getPdo()->exec($sql);
         } catch (\Exception $ex) {
             error_log($ex->getMessage());
         }
