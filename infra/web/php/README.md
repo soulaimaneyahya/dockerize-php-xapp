@@ -1,9 +1,9 @@
-# dockerize-php-xapp
+# PHP
 
 ## Start Docker 🐳
 
-run containers:
+build img
 
 ```sh
-docker build -t dockerize_php:v1 .
+docker build -t dockerize_xapp_php_service:v1 .
 ```
