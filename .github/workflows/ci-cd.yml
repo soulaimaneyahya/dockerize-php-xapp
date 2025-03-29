@@ -110,3 +110,21 @@ jobs:
           docker tag dockerize_xapp_mysql_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_mysql_image:v1
           docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_mysql_image:v1
         timeout-minutes: 5
+
+      - name: Build Infra/redis Docker image
+        run: |
+          cd infra/database/redis
+          docker build -t dockerize_xapp_redis_image:v1 .
+        timeout-minutes: 5
+
+      - name: Push Infra/redis Docker image to Docker Hub
+        run: |
+          docker tag dockerize_xapp_redis_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_redis_image:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_redis_image:v1
+        timeout-minutes: 5
+
+      - name: Push Infra/redis Docker image to GHCR
+        run: |
+          docker tag dockerize_xapp_redis_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_redis_image:v1
+          docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_redis_image:v1
+        timeout-minutes: 5
