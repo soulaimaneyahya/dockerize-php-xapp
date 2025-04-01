@@ -17,4 +17,4 @@ spec:
       targetPort: 80
       name: http
   type: LoadBalancer
-  sessionAntiAffinity: true
+  sessionAffinity: None

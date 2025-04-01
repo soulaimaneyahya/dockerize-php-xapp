@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dockerize-xapp-redis-service
+  labels:
+    app: dockerize-xapp-redis-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dockerize-xapp-redis-service
+  template:
+    metadata:
+      labels:
+        app: dockerize-xapp-redis-service
+    spec:
+      containers:
+        - name: dockerize-xapp-redis-service
+          image: soulaimaneyhcodpartner/dockerize_xapp_redis_image:v1
+          ports:
+            - containerPort: 6379
