@@ -3,6 +3,7 @@ docker hub images;
 - https://hub.docker.com/r/soulaimaneyhcodpartner/dockerize_xapp_php_image
 - https://hub.docker.com/r/soulaimaneyhcodpartner/dockerize_xapp_nginx_image
 - https://hub.docker.com/r/soulaimaneyhcodpartner/dockerize_xapp_mysql_image
+- https://hub.docker.com/r/soulaimaneyhcodpartner/dockerize_xapp_redis_image
 
 docker-compose cli
 ```sh

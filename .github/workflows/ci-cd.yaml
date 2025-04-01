@@ -1,0 +1,130 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: "8.3"
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Validate composer.json and composer.lock
+        run: |
+          cd services/web/php
+          composer validate --strict
+
+      - name: Install dependencies
+        run: |
+          cd services/web/php
+          composer install --prefer-dist --no-interaction --no-progress
+
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+    
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+        timeout-minutes: 5
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.XTOKEN }}
+        timeout-minutes: 5
+
+      - name: Build services/PHP Docker image
+        run: |
+          cd services/web/php
+          docker build -t dockerize_xapp_php_image:v1 .
+        timeout-minutes: 5
+
+      - name: Push services/PHP Docker image to Docker Hub
+        run: |
+          docker tag dockerize_xapp_php_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_php_image:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_php_image:v1
+        timeout-minutes: 5
+
+      - name: Push services/PHP Docker image to GHCR
+        run: |
+          docker tag dockerize_xapp_php_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_php_image:v1
+          docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_php_image:v1
+        timeout-minutes: 5
+
+      - name: Build services/Nginx Docker image
+        run: |
+          cd services/web/nginx
+          docker build -t dockerize_xapp_nginx_image:v1 .
+        timeout-minutes: 5
+
+      - name: Push services/Nginx Docker image to Docker Hub
+        run: |
+          docker tag dockerize_xapp_nginx_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_nginx_image:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_nginx_image:v1
+        timeout-minutes: 5
+
+      - name: Push services/Nginx Docker image to GHCR
+        run: |
+          docker tag dockerize_xapp_nginx_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_nginx_image:v1
+          docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_nginx_image:v1
+        timeout-minutes: 5
+
+      - name: Build services/mysql Docker image
+        run: |
+          cd services/database/mysql
+          docker build -t dockerize_xapp_mysql_image:v1 .
+        timeout-minutes: 5
+
+      - name: Push services/mysql Docker image to Docker Hub
+        run: |
+          docker tag dockerize_xapp_mysql_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_mysql_image:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_mysql_image:v1
+        timeout-minutes: 5
+
+      - name: Push services/mysql Docker image to GHCR
+        run: |
+          docker tag dockerize_xapp_mysql_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_mysql_image:v1
+          docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_mysql_image:v1
+        timeout-minutes: 5
+
+      - name: Build services/redis Docker image
+        run: |
+          cd services/database/redis
+          docker build -t dockerize_xapp_redis_image:v1 .
+        timeout-minutes: 5
+
+      - name: Push services/redis Docker image to Docker Hub
+        run: |
+          docker tag dockerize_xapp_redis_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_redis_image:v1
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_redis_image:v1
+        timeout-minutes: 5
+
+      - name: Push services/redis Docker image to GHCR
+        run: |
+          docker tag dockerize_xapp_redis_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_redis_image:v1
+          docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_redis_image:v1
+        timeout-minutes: 5

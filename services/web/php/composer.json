@@ -1,0 +1,33 @@
+{
+    "name": "soulaimaneyahya/dockerize-php-xapp",
+    "description": "dockerize-php-xapp",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "soulaimaneyahyax",
+            "email": "soulaimaneyahya1@gmail.com"
+        }
+    ],
+    "scripts": {
+      "test": "vendor/bin/phpunit tests/Feature",
+      "php-psr": [
+        "find src -type f -name \"*.php\" -print0 | xargs -0 -n1 php -lf",
+        "vendor/bin/php-cs-fixer fix --allow-risky=yes src --rules=declare_strict_types,@PSR12",
+        "./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 --extensions=php src/*"
+      ]
+    },
+    "require": {
+        "php": "^8.3",
+        "symfony/var-dumper": "^5.0",
+        "vlucas/phpdotenv": "^5.6@dev",
+        "predis/predis": "^2.0",
+        "friendsofphp/php-cs-fixer": "dev-master",
+        "squizlabs/php_codesniffer": "3.*"
+    },
+    "minimum-stability": "dev"
+}
