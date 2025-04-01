@@ -6,13 +6,15 @@
 
 </div>
 
+<img src="./imgs/x.png" alt="php mysql mysql redis nginx docker k8s" />
+
 - [x] simple project dockerize php-nginx-mysql
 - [x] simple php-code
 - [x] redis-database
 - [x] deploy k8s
 - [ ] using haproxy as load balancer
 
-folder structure
+project folder structure
 
 ```sh
 ├── docker-compose.yaml
