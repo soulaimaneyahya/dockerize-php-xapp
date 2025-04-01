@@ -16,7 +16,7 @@ folder structure
 
 ```sh
 ├── docker-compose.yaml
-├── infra/
+├── services/
 │   ├── database/
 │   │   ├── mysql/
 │   │   │   ├── Dockerfile
@@ -28,15 +28,19 @@ folder structure
 │       ├── nginx/
 │       │   ├── Dockerfile
 │       │   ├── nginx.conf
+│       │   ├── fastcgi_params
 │       │   └── .env
 │       └── php/
-│           ├── composer.json
-│           ├── config/
-│           ├── Dockerfile
-│           ├── .env
 │           ├── public/
 │           │   └── index.php
 │           ├── src/
+│           ├── composer.json
+│           ├── Dockerfile
+│           ├── .env
+├── infra/
+│   ├── k8s/
+│       ├── deployments/
+│       └── services/
 ```
 
 **resources**;

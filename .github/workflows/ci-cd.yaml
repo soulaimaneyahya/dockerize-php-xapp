@@ -25,12 +25,12 @@ jobs:
 
       - name: Validate composer.json and composer.lock
         run: |
-          cd infra/web/php
+          cd services/web/php
           composer validate --strict
 
       - name: Install dependencies
         run: |
-          cd infra/web/php
+          cd services/web/php
           composer install --prefer-dist --no-interaction --no-progress
 
   cd:
@@ -57,73 +57,73 @@ jobs:
           password: ${{ secrets.XTOKEN }}
         timeout-minutes: 5
 
-      - name: Build Infra/PHP Docker image
+      - name: Build services/PHP Docker image
         run: |
-          cd infra/web/php
+          cd services/web/php
           docker build -t dockerize_xapp_php_image:v1 .
         timeout-minutes: 5
 
-      - name: Push Infra/PHP Docker image to Docker Hub
+      - name: Push services/PHP Docker image to Docker Hub
         run: |
           docker tag dockerize_xapp_php_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_php_image:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_php_image:v1
         timeout-minutes: 5
 
-      - name: Push Infra/PHP Docker image to GHCR
+      - name: Push services/PHP Docker image to GHCR
         run: |
           docker tag dockerize_xapp_php_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_php_image:v1
           docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_php_image:v1
         timeout-minutes: 5
 
-      - name: Build Infra/Nginx Docker image
+      - name: Build services/Nginx Docker image
         run: |
-          cd infra/web/nginx
+          cd services/web/nginx
           docker build -t dockerize_xapp_nginx_image:v1 .
         timeout-minutes: 5
 
-      - name: Push Infra/Nginx Docker image to Docker Hub
+      - name: Push services/Nginx Docker image to Docker Hub
         run: |
           docker tag dockerize_xapp_nginx_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_nginx_image:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_nginx_image:v1
         timeout-minutes: 5
 
-      - name: Push Infra/Nginx Docker image to GHCR
+      - name: Push services/Nginx Docker image to GHCR
         run: |
           docker tag dockerize_xapp_nginx_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_nginx_image:v1
           docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_nginx_image:v1
         timeout-minutes: 5
 
-      - name: Build Infra/mysql Docker image
+      - name: Build services/mysql Docker image
         run: |
-          cd infra/database/mysql
+          cd services/database/mysql
           docker build -t dockerize_xapp_mysql_image:v1 .
         timeout-minutes: 5
 
-      - name: Push Infra/mysql Docker image to Docker Hub
+      - name: Push services/mysql Docker image to Docker Hub
         run: |
           docker tag dockerize_xapp_mysql_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_mysql_image:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_mysql_image:v1
         timeout-minutes: 5
 
-      - name: Push Infra/mysql Docker image to GHCR
+      - name: Push services/mysql Docker image to GHCR
         run: |
           docker tag dockerize_xapp_mysql_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_mysql_image:v1
           docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_mysql_image:v1
         timeout-minutes: 5
 
-      - name: Build Infra/redis Docker image
+      - name: Build services/redis Docker image
         run: |
-          cd infra/database/redis
+          cd services/database/redis
           docker build -t dockerize_xapp_redis_image:v1 .
         timeout-minutes: 5
 
-      - name: Push Infra/redis Docker image to Docker Hub
+      - name: Push services/redis Docker image to Docker Hub
         run: |
           docker tag dockerize_xapp_redis_image:v1 ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_redis_image:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/dockerize_xapp_redis_image:v1
         timeout-minutes: 5
 
-      - name: Push Infra/redis Docker image to GHCR
+      - name: Push services/redis Docker image to GHCR
         run: |
           docker tag dockerize_xapp_redis_image:v1 ghcr.io/${{ github.repository_owner }}/dockerize_xapp_redis_image:v1
           docker push ghcr.io/${{ github.repository_owner }}/dockerize_xapp_redis_image:v1

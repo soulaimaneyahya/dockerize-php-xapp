@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS test_database;
+CREATE DATABASE IF NOT EXISTS dockerize_xapp_mysql_service_database;
 
 CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password';
 
