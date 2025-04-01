@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbeca684034e8af80250e309e8196d39",
+    "content-hash": "745a4d29f46094a618c606373a1c5dc3",
     "packages": [
         {
             "name": "clue/ndjson-react",
@@ -414,12 +414,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "e44b8f953fff0e614094ea382c8a5cd61516d2e9"
+                "reference": "686e616fc24d27fb628517ab2abfecf52dc494d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/e44b8f953fff0e614094ea382c8a5cd61516d2e9",
-                "reference": "e44b8f953fff0e614094ea382c8a5cd61516d2e9",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/686e616fc24d27fb628517ab2abfecf52dc494d3",
+                "reference": "686e616fc24d27fb628517ab2abfecf52dc494d3",
                 "shasum": ""
             },
             "require": {
@@ -511,7 +511,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-31T14:35:12+00:00"
+            "time": "2025-03-31T19:49:23+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -1472,27 +1472,28 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "4.0.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "fa0a2c9df8d1c739d5244824b66c6b2b3b6d1ece"
+                "reference": "b5c80d30f1c6294b3bfe825d7356d9e3a25f2f39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/fa0a2c9df8d1c739d5244824b66c6b2b3b6d1ece",
-                "reference": "fa0a2c9df8d1c739d5244824b66c6b2b3b6d1ece",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/b5c80d30f1c6294b3bfe825d7356d9e3a25f2f39",
+                "reference": "b5c80d30f1c6294b3bfe825d7356d9e3a25f2f39",
                 "shasum": ""
             },
             "require": {
                 "ext-simplexml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
-                "php": ">=7.2.0"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.0 || ^9.3.4"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
             },
+            "default-branch": true,
             "bin": [
                 "bin/phpcbf",
                 "bin/phpcs"
@@ -1521,7 +1522,7 @@
                     "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer/graphs/contributors"
                 }
             ],
-            "description": "PHP_CodeSniffer tokenizes PHP files and detects violations of a defined set of coding standards.",
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
             "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
@@ -1552,7 +1553,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-03-30T22:16:22+00:00"
+            "time": "2025-03-31T16:35:12+00:00"
         },
         {
             "name": "symfony/console",
@@ -1560,12 +1561,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "163ef97415eed697a673c6078f9c0459442ad996"
+                "reference": "a16e315188815c12c73f40e235119efea80a2d5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/163ef97415eed697a673c6078f9c0459442ad996",
-                "reference": "163ef97415eed697a673c6078f9c0459442ad996",
+                "url": "https://api.github.com/repos/symfony/console/zipball/a16e315188815c12c73f40e235119efea80a2d5d",
+                "reference": "a16e315188815c12c73f40e235119efea80a2d5d",
                 "shasum": ""
             },
             "require": {
@@ -1647,7 +1648,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-03-29T04:07:52+00:00"
+            "time": "2025-04-01T08:40:49+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3026,7 +3027,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "friendsofphp/php-cs-fixer": 20,
-        "squizlabs/php_codesniffer": 20,
         "vlucas/phpdotenv": 20
     },
     "prefer-stable": false,
