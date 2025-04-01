@@ -2,14 +2,14 @@
 
 # dockerize-php-xapp
 
-[![CI-CD](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci-cd.yml)
+[![CI-CD](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci-cd.yaml/badge.svg)](https://github.com/soulaimaneyahya/dockerize-php-xapp/actions/workflows/ci-cd.yaml)
 
 </div>
 
 - [x] simple project dockerize php-nginx-mysql
 - [x] simple php-code
 - [x] redis-database
-- [ ] deploy k8s
+- [x] deploy k8s
 - [ ] using haproxy as load balancer
 
 folder structure
