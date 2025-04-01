@@ -52,8 +52,7 @@ final class DatabaseConnectionService
 
             return $this->pdo;
         } catch (PDOException $e) {
-            // Handle connection failure and rethrow exception
-            throw new \Exception("Database connection error: " . $e->getMessage());
+            dump("Database Connection failed: " . $e->getMessage());
         }
     }
 

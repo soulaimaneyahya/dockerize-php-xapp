@@ -1,6 +1,8 @@
-FROM nginx:alpine
+FROM nginx:1.27.4-alpine
 
 WORKDIR /usr/share/nginx/html
+
+COPY ./fastcgi_params /etc/nginx/fastcgi_params
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 

@@ -23,6 +23,5 @@ return [
     'redis' => [
         'host' => $_ENV['REDIS_HOST'],
         'port' => $_ENV['REDIS_PORT'],
-        'password' => $_ENV['REDIS_PASSWORD'],
     ],
 ];

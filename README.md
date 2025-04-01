@@ -9,8 +9,6 @@
 - [x] simple project dockerize php-nginx-mysql
 - [x] simple php-code
 - [x] redis-database
-- [ ] PHP posts APIs
-- [ ] frontend js fetch backend APIs
 - [ ] deploy k8s
 - [ ] using haproxy as load balancer
 

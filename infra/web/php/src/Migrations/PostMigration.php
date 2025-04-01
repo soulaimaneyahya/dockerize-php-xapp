@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Migrations;
 
-use PDO;
 use App\Database\DatabaseConnectionService;
 
 final class PostMigration
 {
-    private readonly DatabaseConnectionService $dbConnectionService;
-
-    public function __construct(array $config)
-    {
-        $this->dbConnectionService = new DatabaseConnectionService($config['database']);
+    public function __construct(
+        private readonly DatabaseConnectionService $dbConnectionService
+    ) {
     }
 
     /**
