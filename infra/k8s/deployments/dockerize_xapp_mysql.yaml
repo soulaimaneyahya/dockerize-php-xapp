@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dockerize-xapp-mysql-service
+  labels:
+    app: dockerize-xapp-mysql-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dockerize-xapp-mysql-service
+  template:
+    metadata:
+      labels:
+        app: dockerize-xapp-mysql-service
+    spec:
+      containers:
+        - name: dockerize-xapp-mysql-service
+          image: soulaimaneyhcodpartner/dockerize_xapp_mysql_image:v1
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "password"
+            - name: MYSQL_DATABASE
+              value: "dockerize_xapp_mysql_service_database"
+            - name: MYSQL_USER
+              value: "user"
+            - name: MYSQL_PASSWORD
+              value: "password"
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_ROOT_HOST
+              value: "localhost"
+          volumeMounts:
+            - name: dockerize-xapp-mysql-service-volume
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: dockerize-xapp-mysql-service-volume
+          persistentVolumeClaim:
+            claimName: dockerize-xapp-mysql-servic-pvc
