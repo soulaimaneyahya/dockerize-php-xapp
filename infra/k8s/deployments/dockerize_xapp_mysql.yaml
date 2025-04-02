@@ -20,19 +20,9 @@ spec:
           image: soulaimaneyhcodpartner/dockerize_xapp_mysql_image:v1
           ports:
             - containerPort: 3306
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "password"
-            - name: MYSQL_DATABASE
-              value: "dockerize_xapp_mysql_service_database"
-            - name: MYSQL_USER
-              value: "user"
-            - name: MYSQL_PASSWORD
-              value: "password"
-            - name: MYSQL_PORT
-              value: "3306"
-            - name: MYSQL_ROOT_HOST
-              value: "localhost"
+          envFrom:
+            - secretRef:
+                name: dockerize-xapp-mysql-service-secret
           volumeMounts:
             - name: dockerize-xapp-mysql-service-volume
               mountPath: /var/lib/mysql

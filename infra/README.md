@@ -16,6 +16,11 @@ kubectl apply -f k8s/services/dockerize_xapp_nginx_service.yaml
 kubectl apply -f k8s/services/dockerize_xapp_php_service.yaml
 ```
 
+Apply secrets conf
+```sh
+kubectl apply -f k8s/secrets/dockerize_xapp_mysql_secrets.yaml
+```
+
 Apply pvc conf
 ```sh
 kubectl apply -f k8s/pvc/dockerize_xapp_mysql_pv.yaml
@@ -29,4 +34,5 @@ kubectl get pods
 kubectl get services
 kubectl get pvc
 kubectl get pv
+kubectl get secrets
 ```
