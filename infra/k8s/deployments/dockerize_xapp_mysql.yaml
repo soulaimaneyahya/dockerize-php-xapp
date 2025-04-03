@@ -26,6 +26,14 @@ spec:
           volumeMounts:
             - name: dockerize-xapp-mysql-service-volume
               mountPath: /var/lib/mysql
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
       volumes:
         - name: dockerize-xapp-mysql-service-volume
           persistentVolumeClaim:
