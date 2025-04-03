@@ -18,5 +18,10 @@ spec:
       containers:
         - name: dockerize-xapp-nginx-service
           image: soulaimaneyhcodpartner/dockerize_xapp_nginx_image:v1
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"
           ports:
             - containerPort: 80

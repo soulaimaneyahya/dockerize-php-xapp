@@ -29,6 +29,11 @@ kubectl apply -f k8s/services/dockerize_xapp_nginx_service.yaml
 kubectl apply -f k8s/services/dockerize_xapp_php_service.yaml
 ```
 
+HPA
+```sh
+kubectl autoscale deployment dockerize-xapp-nginx-service --cpu-percent=50 --min=1 --max=10
+```
+
 Apply secrets conf
 ```sh
 kubectl apply -f k8s/secrets/dockerize_xapp_mysql_secrets.yaml
@@ -48,4 +53,5 @@ kubectl get services
 kubectl get pvc
 kubectl get pv
 kubectl get secrets
+kubectl get hpa
 ```
