@@ -26,6 +26,13 @@ spec:
           volumeMounts:
             - name: dockerize-xapp-mysql-service-volume
               mountPath: /var/lib/mysql
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
           readinessProbe:
             tcpSocket:
               port: 3306
