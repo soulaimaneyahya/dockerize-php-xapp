@@ -10,6 +10,11 @@ spec:
     name: dockerize-xapp-nginx-service
   minReplicas: 1
   maxReplicas: 10
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 20 # wait 20s before scaling up
+    scaleDown:
+      stabilizationWindowSeconds: 20 # wait 20s before scaling down
   metrics:
     - type: Resource
       resource:

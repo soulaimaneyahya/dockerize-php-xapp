@@ -41,6 +41,11 @@ final class Init
 
     private function logConfig(array $config): void
     {
+        $pdo = $this->databaseConnectionService->getPdo();
+        $version = $pdo->query('SELECT VERSION()')->fetchColumn();
+
+        dump("MySQL Version: {$version}");
+        
         dump([
             $config['app_name'],
             $config['app_root'],

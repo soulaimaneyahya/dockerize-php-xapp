@@ -39,6 +39,12 @@ HPA CLI
 kubectl autoscale deployment dockerize-xapp-nginx-service --cpu-percent=50 --min=1 --max=10
 ```
 
+vpa
+```sh
+kubectl apply -f k8s/vpa/dockerize_xapp_mysql_vpa.yaml
+kubectl apply -f k8s/vpa/dockerize_xapp_redis_vpa.yaml
+```
+
 Apply secrets conf
 ```sh
 kubectl apply -f k8s/secrets/dockerize_xapp_mysql_secrets.yaml
@@ -59,4 +65,9 @@ kubectl get pvc
 kubectl get pv
 kubectl get secrets
 kubectl get hpa
+```
+
+kubectl
+```sh
+kubectl exec -it x-pod -- /bin/sh
 ```
