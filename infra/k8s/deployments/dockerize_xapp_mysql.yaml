@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dockerize-xapp-mysql-service
+  labels:
+    app: dockerize-xapp-mysql-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dockerize-xapp-mysql-service
+  template:
+    metadata:
+      labels:
+        app: dockerize-xapp-mysql-service
+    spec:
+      containers:
+        - name: dockerize-xapp-mysql-service
+          image: 753488/dockerize_xapp_mysql_image:v1
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - secretRef:
+                name: dockerize-xapp-mysql-service-secret
+          volumeMounts:
+            - name: dockerize-xapp-mysql-service-volume
+              mountPath: /var/lib/mysql
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+      volumes:
+        - name: dockerize-xapp-mysql-service-volume
+          persistentVolumeClaim:
+            claimName: dockerize-xapp-mysql-servic-pvc

@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  dockerize-xapp-mysql-service:
+    build:
+      context: ./services/database/mysql
+      dockerfile: Dockerfile
+    image: dockerize_xapp_mysql_image:v1
+    container_name: dockerize_xapp_mysql_container
+    env_file:
+      - ./services/database/mysql/.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - dockerize-xapp-mysql-service-volume:/var/lib/mysql
+    networks:
+      app_network:
+        ipv4_address: 10.10.0.100 # IP for MySQL
+
+  dockerize-xapp-php-service:
+    build:
+      context: ./services/web/php
+      dockerfile: Dockerfile
+    image: dockerize_xapp_php_image:v1
+    container_name: dockerize_xapp_php_container
+    working_dir: /var/www/html
+    env_file:
+      - ./services/web/php/.env
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./services/web/php:/var/www/html
+      - ./services/web/php/vendor:/var/www/html/vendor
+    depends_on:
+      - dockerize-xapp-mysql-service
+    networks:
+      app_network:
+        ipv4_address: 10.10.0.101 # IP for PHP
+
+  dockerize-xapp-nginx-service:
+    build:
+      context: ./services/web/nginx
+      dockerfile: Dockerfile
+    image: dockerize_xapp_nginx_image:v1
+    container_name: dockerize_xapp_nginx_container
+    working_dir: /var/www/html
+    env_file:
+      - ./services/web/nginx/.env
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - dockerize-xapp-php-service
+    networks:
+      app_network:
+        ipv4_address: 10.10.0.102 # IP for Nginx
+
+  dockerize-xapp-redis-service:
+    build:
+      context: ./services/database/redis
+      dockerfile: Dockerfile
+    image: dockerize_xapp_redis_image:v1
+    container_name: dockerize_xapp_redis_container
+    env_file:
+      - ./services/database/redis/.env
+    ports:
+      - "6380:6379"  # Host port 6380 mapped to Redis container's default port 6379
+    networks:
+      app_network:
+        ipv4_address: 10.10.0.103 # IP for redis
+
+volumes:
+  dockerize-xapp-mysql-service-volume:
+
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.10.0.0/24" # subnet for the network
+          gateway: "10.10.0.1" # gateway for the subnet
+    external: false
